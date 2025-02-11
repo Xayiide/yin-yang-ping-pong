@@ -2,6 +2,7 @@
 #include <stdlib.h>
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL2_gfxPrimitives.h>
 
 #define ANCHO 600
 #define ALTO  600
@@ -9,8 +10,11 @@
 
 
 int main() {
+    SDL_Event     e;
     SDL_Renderer *rnd = NULL;
     SDL_Window   *win = NULL;
+
+    int run = 1;
 
     if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
         fprintf(stderr, "Error en la inicialización de SDL.\n");
@@ -31,5 +35,33 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
+    while (run == 1) {
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                run = 0;
+            }
+            else if (e.type == SDL_KEYDOWN) {
+                switch (e.key.keysym.sym) {
+                    case SDLK_q:
+                        run = 0;
+                        break;
+                }
+            }
+        }
 
+        SDL_SetRenderDrawColor(rnd, 0, 0, 0, SDL_ALPHA_OPAQUE);
+        SDL_RenderClear(rnd);
+
+        filledCircleColor(rnd, 300, 300, 20, 0xFFFFFFFF);
+
+        SDL_RenderPresent(rnd);
+        SDL_Delay(10);
+
+    }
+    
+    SDL_DestroyRenderer(rnd);
+    SDL_DestroyWindow(win);
+    SDL_Quit();
+
+    return 0;
 }

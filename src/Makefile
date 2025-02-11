@@ -1,6 +1,6 @@
 CC     = gcc
 CFLAGS = -g -Wall -Wextra -Wpedantic
-LFLAGS = -lSDL2main -lSDL2
+LFLAGS = -lSDL2 -lSDL2_gfx
 
 .PHONY: all clean re run
 
