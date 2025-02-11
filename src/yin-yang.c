@@ -7,6 +7,8 @@
 #define ANCHO 600
 #define ALTO  600
 
+#define ANCHO_CELDA 60
+#define ALTO_CELDA  60
 
 
 int main() {
@@ -47,7 +49,7 @@ int main() {
                         break;
                 }
             }
-        }
+        } /* while (SDL_PollEvent()) */
 
         SDL_SetRenderDrawColor(rnd, 0, 0, 0, SDL_ALPHA_OPAQUE);
         SDL_RenderClear(rnd);
@@ -57,7 +59,7 @@ int main() {
         SDL_RenderPresent(rnd);
         SDL_Delay(10);
 
-    }
+    } /* while (run) */
     
     SDL_DestroyRenderer(rnd);
     SDL_DestroyWindow(win);
