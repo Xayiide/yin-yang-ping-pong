@@ -1,10 +1,12 @@
 #include <SDL2/SDL.h>
-#include <stdio.h>            /* fprintf */
-#include <stdlib.h>           /* exit    */
+#include <SDL2/SDL2_gfxPrimitives.h> /* filledCirclecolor */
+#include <stdio.h>                   /* fprintf */
+#include <stdlib.h>                  /* exit    */
 
 #include "inc/config.h"
 #include "inc/graficos.h"
 #include "inc/celda.h"
+#include "inc/bola.h"
 
 static SDL_Renderer *rnd;
 static SDL_Window   *win;
@@ -13,6 +15,8 @@ static SDL_Window   *win;
 
 static void graficos_imprime_celdas();
 static void graficos_imprime_celda(int x, int y, SDL_Color c);
+static void graficos_imprime_bolas();
+static void graficos_imprime_bola(int x, int y, int r, SDL_Color c);
 
 
 
@@ -51,7 +55,7 @@ void graficos_imprime() {
     /* Imprime las celdas */
     graficos_imprime_celdas();
     /* Imprime las bolas */
-
+    graficos_imprime_bolas();
 
     SDL_RenderPresent(rnd);
     SDL_Delay(10);
@@ -77,7 +81,6 @@ void graficos_imprime_celdas() {
 
 }
 
-
 void graficos_imprime_celda(int x, int y, SDL_Color color) {
     SDL_Rect rct;
 
@@ -88,4 +91,27 @@ void graficos_imprime_celda(int x, int y, SDL_Color color) {
 
     SDL_SetRenderDrawColor(rnd, color.r, color.g, color.b, SDL_ALPHA_OPAQUE);
     SDL_RenderFillRect(rnd, &rct);
+}
+
+
+void graficos_imprime_bolas() {
+    int       i;
+    int       nbolas;
+    int       px, py, pr;
+    SDL_Color color;
+
+    nbolas = bola_obtener_num_bolas();
+    for (i = 0; i < nbolas; i++) {
+        color = bola_obtener_color(i);
+        bola_obtener_posiciones(i, &px, &py);
+        pr = bola_obtener_radio(i);
+        graficos_imprime_bola(px, py, pr, color);
+    }
+
+}
+
+void graficos_imprime_bola(int x, int y, int r, SDL_Color c) {
+    /* Color acepta el orden inverso (debe ser algo de endianismo) */
+    uint32_t color = (uint32_t) (c.a << 24) + (c.b << 16) + (c.g << 8) + (c.r);
+    filledCircleColor(rnd, x, y, r, color);
 }

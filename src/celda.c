@@ -9,7 +9,7 @@ typedef struct _celda {
     SDL_Color color;
 } celda;
 
-celda **mat_celdas;
+static celda **mat_celdas;
 
 static int filas;
 static int columnas;

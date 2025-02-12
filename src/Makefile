@@ -6,7 +6,7 @@ LFLAGS = -lSDL2 -lSDL2_gfx
 
 
 TGT  = yin-yang
-SRCS = yin-yang.c celda.c graficos.c
+SRCS = yin-yang.c celda.c graficos.c bola.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(TGT)

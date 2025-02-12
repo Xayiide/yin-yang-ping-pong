@@ -8,6 +8,7 @@
 #include "inc/config.h"
 #include "inc/celda.h"
 #include "inc/graficos.h"
+#include "inc/bola.h"
 
 
 int main() {
@@ -16,6 +17,7 @@ int main() {
 
     graficos_init();
     celda_init(ANCHO/ANCHO_CELDA, ALTO/ALTO_CELDA);
+    bola_init(1, 1);
 
     while (run == 1) {
         while (SDL_PollEvent(&e)) {
