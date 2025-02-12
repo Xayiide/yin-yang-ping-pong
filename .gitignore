@@ -1,0 +1,15 @@
+
+# Ficheros objeto e intermedios
+*.d
+*.o
+
+# El binario ejecutable
+ying-yang
+
+# Ficheros intermedios de Vim
+*.swp
+
+# Ficheros de Eclipse
+.cproject
+.project
+.settings/*
