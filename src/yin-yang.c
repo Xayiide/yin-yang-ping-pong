@@ -4,38 +4,18 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL2_gfxPrimitives.h>
 
-#define ANCHO 600
-#define ALTO  600
 
-#define ANCHO_CELDA 60
-#define ALTO_CELDA  60
+#include "inc/config.h"
+#include "inc/celda.h"
+#include "inc/graficos.h"
 
 
 int main() {
-    SDL_Event     e;
-    SDL_Renderer *rnd = NULL;
-    SDL_Window   *win = NULL;
+    SDL_Event e;
+    int       run = 1;
 
-    int run = 1;
-
-    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_EVENTS) < 0) {
-        fprintf(stderr, "Error en la inicialización de SDL.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    win = SDL_CreateWindow("Yin-Yang Ping Pong",
-            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-            ANCHO, ALTO, SDL_WINDOW_SHOWN);
-    if (win == NULL) {
-        fprintf(stderr, "Error en la creación de la ventana.\n");
-        exit(EXIT_FAILURE);
-    }
-
-    rnd = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED);
-    if (rnd == NULL) {
-        fprintf(stderr, "Error en la creación del render.\n");
-        exit(EXIT_FAILURE);
-    }
+    graficos_init();
+    celda_init(ANCHO/ANCHO_CELDA, ALTO/ALTO_CELDA);
 
     while (run == 1) {
         while (SDL_PollEvent(&e)) {
@@ -51,19 +31,20 @@ int main() {
             }
         } /* while (SDL_PollEvent()) */
 
-        SDL_SetRenderDrawColor(rnd, 0, 0, 0, SDL_ALPHA_OPAQUE);
-        SDL_RenderClear(rnd);
+        graficos_imprime();
 
-        filledCircleColor(rnd, 300, 300, 20, 0xFFFFFFFF);
+        //SDL_SetRenderDrawColor(rnd, 0, 0, 0, SDL_ALPHA_OPAQUE);
+        //SDL_RenderClear(rnd);
 
-        SDL_RenderPresent(rnd);
-        SDL_Delay(10);
+        //filledCircleColor(rnd, 300, 300, 20, 0xFFFFFFFF);
+
+        //SDL_RenderPresent(rnd);
+        //SDL_Delay(10);
 
     } /* while (run) */
     
-    SDL_DestroyRenderer(rnd);
-    SDL_DestroyWindow(win);
-    SDL_Quit();
+    graficos_end();
+    celda_end();
 
     return 0;
 }
