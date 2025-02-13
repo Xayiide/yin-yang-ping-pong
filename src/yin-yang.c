@@ -9,12 +9,14 @@
 #include "inc/celda.h"
 #include "inc/graficos.h"
 #include "inc/bola.h"
+#include "inc/errores.h"
 
 
 int main() {
     SDL_Event e;
     int       run = 1;
 
+    errores_init();
     graficos_init();
     celda_init();
     bola_init(3, 3);
