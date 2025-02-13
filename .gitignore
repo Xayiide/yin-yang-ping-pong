@@ -4,7 +4,7 @@
 *.o
 
 # El binario ejecutable
-ying-yang
+yin-yang
 
 # Ficheros intermedios de Vim
 *.swp
