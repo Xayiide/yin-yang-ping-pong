@@ -16,8 +16,8 @@ int main() {
     int       run = 1;
 
     graficos_init();
-    celda_init(ANCHO/ANCHO_CELDA, ALTO/ALTO_CELDA);
-    bola_init(1, 1);
+    celda_init();
+    bola_init(3, 3);
 
     while (run == 1) {
         while (SDL_PollEvent(&e)) {
@@ -29,20 +29,16 @@ int main() {
                     case SDLK_q:
                         run = 0;
                         break;
+                    default:
+                        fprintf(stderr, "CASO DEFAULT en el SWITCH %s:%s:%d\n",
+                                __FILE__, __func__, __LINE__);
+                        break;
                 }
             }
         } /* while (SDL_PollEvent()) */
 
         graficos_imprime();
-
-        //SDL_SetRenderDrawColor(rnd, 0, 0, 0, SDL_ALPHA_OPAQUE);
-        //SDL_RenderClear(rnd);
-
-        //filledCircleColor(rnd, 300, 300, 20, 0xFFFFFFFF);
-
-        //SDL_RenderPresent(rnd);
-        //SDL_Delay(10);
-
+        bola_actualizar();
     } /* while (run) */
     
     graficos_end();
