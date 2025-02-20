@@ -51,3 +51,7 @@ incluir:
 
 enlazar:  
 `-lSDL2 -lSDL2_gfx`
+
+
+
+# Hola :3
